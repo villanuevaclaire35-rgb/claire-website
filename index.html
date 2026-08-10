@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flowers for Sheryl</title>
+  <style>
+    :root {
+      --bg-color: #f4f7f2;
+      --card-bg: #ffffff;
+      --text-main: #2d3748;
+      --text-muted: #718096;
+      --primary-green: #3d6b41;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      color: var(--primary-green);
+      margin-bottom: 8px;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .flower-container {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      width: 100%;
+      max-width: 580px;
+    }
+
+    .flower-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .flower-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+    }
+
+    .letter {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--primary-green);
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .svg-icon {
+      width: 75px;
+      height: 75px;
+      flex-shrink: 0;
+    }
+
+    .flower-details {
+      flex-grow: 1;
+    }
+
+    .flower-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .flower-symbolism {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Modal / Pop-up Window */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: #ffffff;
+      padding: 24px;
+      border-radius: 20px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+      transform: scale(0.8);
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: scale(1);
+    }
+
+    .real-flower-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      color: var(--primary-green);
+      margin-bottom: 6px;
+    }
+
+    .modal-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .close-btn {
+      background: var(--primary-green);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      font-size: 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .close-btn:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1> Sheryl 🌻</h1>
+    <p class="subtitle"> EVERY FLOWER HAS A MEANING. TOUCH TO REVEAL</p>
+  </header>
+
+  <main class="flower-container">
+
+    <!-- Sunflower (S) -->
+    <div class="flower-card" onclick="showFlower('Sunflower', 'Like a Sun flower, you turn toward the light even on cloudy days. You bring positivity, loyalty,and long lasting happiness to everyone around you. Your warmth is steady, your heart is faithful, and you make ordinary moments feel brigth. With you, life feels hopeful, grounded , and full of sunshine. ', 'SunFlower.jpg', 'song1.mp3')">
+      <div class="letter">S</div>
+      <div class="svg-icon">
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <path d="M50,50 L50,95" stroke="#3d6b41" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="50" cy="50" r="30" fill="#eab308"/>
+          <circle cx="50" cy="50" r="22" fill="#fbbf24"/>
+          <circle cx="50" cy="50" r="14" fill="#78350f"/>
+        </svg>
+      </div>
+      <div class="flower-details">
+        <div class="flower-name" style="color: #ca8a04;">Sunflower</div>
+        <div class="flower-symbolism">Positivity, loyalty, and long-lasting happiness</div>
+      </div>
+    </div>
+
+    <!-- Hibiscus (H) -->
+    <div class="flower-card" onclick="showFlower('Hibiscus','Like a hibiscus, you are delicate yet stricking.You bring warmth , hospitality,and beauty that makes people feel welcome and safe. Your kindness blooms quietly but leaves big impact. You remind us that gentle strength and softness can change a room , and that grace is powerful.', 'Hibiscus.jpg', 'song2.mp3')">
+      <div class="letter">H</div>
+      <div class="svg-icon">
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <path d="M50,50 L50,95" stroke="#3d6b41" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="50" cy="32" r="16" fill="#f43f5e"/>
+          <circle cx="68" cy="50" r="16" fill="#f43f5e"/>
+          <circle cx="50" cy="68" r="16" fill="#f43f5e"/>
+          <circle cx="32" cy="50" r="16" fill="#f43f5e"/>
+          <circle cx="50" cy="50" r="10" fill="#be123c"/>
+        </svg>
+      </div>
+      <div class="flower-details">
+        <div class="flower-name" style="color: #e11d48;">Hibiscus</div>
+        <div class="flower-symbolism">Delicate beauty, warmth, and hospitality</div>
+      </div>
+    </div>
+
+    <!-- Echinacea (E) -->
+    <div class="flower-card" onclick="showFlower('Echinacea', ' Like echinacea, you are strength in bloom. You represent health, healing, and resilience. Even after storms, you rise again, tougher and brighter. You protect the people you love and give energy when others feel tired. Your presence is medicine, calming, restoring , and full of quiet courage.', 'Enchenaci.jpg', 'song3.mp3')">
+      <div class="letter">E</div>
+      <div class="svg-icon">
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <path d="M50,50 L50,95" stroke="#3d6b41" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="32" cy="58" rx="14" ry="7" fill="#a855f7" transform="rotate(-20 32 58)"/>
+          <ellipse cx="68" cy="58" rx="14" ry="7" fill="#a855f7" transform="rotate(20 68 58)"/>
+          <ellipse cx="50" cy="66" rx="7" ry="14" fill="#a855f7"/>
+          <path d="M36,50 C36,32 64,32 64,50 Z" fill="#92400e"/>
+        </svg>
+      </div>
+      <div class="flower-details">
+        <div class="flower-name" style="color: #9333ea;">Echinacea</div>
+        <div class="flower-symbolism">Strength, health, and resilience</div>
+      </div>
+    </div>
+
+    <!-- Rose (R) -->
+    <div class="flower-card" onclick="showFlower('Rose', ' Like a rose, you are love in its purest form, You carry gratitude , admiration,and deep affection. Sometimes soft, sometimes bold with throns that guard your heart. You teach us that real beauty includes care and boundaries. With you, love feels timeless , cherished, and unforgettable.  ', 'Rose.jpg', 'song4.mp3')">
+      <div class="letter">R</div>
+      <div class="svg-icon">
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <path d="M50,50 L50,95" stroke="#3d6b41" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="50" cy="45" r="24" fill="#dc2626"/>
+          <circle cx="45" cy="42" r="18" fill="#ef4444"/>
+          <circle cx="52" cy="46" r="12" fill="#f87171"/>
+        </svg>
+      </div>
+      <div class="flower-details">
+        <div class="flower-name" style="color: #dc2626;">Rose</div>
+        <div class="flower-symbolism">Love, gratitude, and deep admiration</div>
+      </div>
+    </div>
+
+    <!-- Yarrow (Y) -->
+    <div class="flower-card" onclick="showFlower('Yarrow', ' Like yarrow, you are a healer and protector you offer everlasting devotion and comfort when life gets heavy. Your loyalty runs deep,and your presence helps wounds close, Youre the friend who stays, the calm in chaos, and the remember that love can mend and hold us together.', 'Yarrow.jpg', 'song5.mp3')">
+      <div class="letter">Y</div>
+      <div class="svg-icon">
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <path d="M50,60 L50,95" stroke="#3d6b41" stroke-width="4"/>
+          <path d="M50,70 L30,45" stroke="#3d6b41" stroke-width="3"/>
+          <path d="M50,70 L70,45" stroke="#3d6b41" stroke-width="3"/>
+          <circle cx="30" cy="40" r="8" fill="#fde047"/>
+          <circle cx="50" cy="35" r="9" fill="#fde047"/>
+          <circle cx="70" cy="40" r="8" fill="#fde047"/>
+        </svg>
+      </div>
+      <div class="flower-details">
+        <div class="flower-name" style="color: #ca8a04;">Yarrow</div>
+        <div class="flower-symbolism">Healing, protection, and everlasting devotion</div>
+      </div>
+    </div>
+
+    <!-- Lavender (L) -->
+    <div class="flower-card" onclick="showFlower('Lavender', ' Like a lavender, you bring peace, purity, and devotion. Your calm energy soothes anxious hearts and clears the noise. Youre gentle, faithful, and quietly strong. Just being around you feels like deep breath. You remind us that rest, grace, and quiet love are the most beautiful things.', 'Lavender.jpg', 'song6.mp3')">
+      <div class="letter">L</div>
+      <div class="svg-icon">
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <path d="M50,50 L50,95" stroke="#3d6b41" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="50" cy="30" rx="6" ry="10" fill="#8b5cf6"/>
+          <ellipse cx="44" cy="42" rx="6" ry="9" fill="#a78bfa"/>
+          <ellipse cx="56" cy="42" rx="6" ry="9" fill="#a78bfa"/>
+          <ellipse cx="42" cy="55" rx="6" ry="8" fill="#c4b5fd"/>
+          <ellipse cx="58" cy="55" rx="6" ry="8" fill="#c4b5fd"/>
+          <ellipse cx="44" cy="68" rx="5" ry="7" fill="#8b5cf6"/>
+          <ellipse cx="56" cy="68" rx="5" ry="7" fill="#8b5cf6"/>
+        </svg>
+      </div>
+      <div class="flower-details">
+        <div class="flower-name" style="color: #7c3aed;">Lavender</div>
+        <div class="flower-symbolism">Purity, silence, devotion, and peace</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal Pop-up -->
+  <div class="modal-overlay" id="flowerModal">
+    <div class="modal-content">
+      <img id="modalImg" class="real-flower-img" src="" alt="Real Flower">
+      <h2 id="modalTitle" class="modal-title"></h2>
+      <p id="modalDesc" class="modal-desc"></p>
+      <button class="close-btn" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <!-- Audio Element -->
+  <audio id="bgMusic" preload="auto"></audio>
+
+  <script>
+    function showFlower(name, symbolism, imgUrl, songUrl) {
+      const modal = document.getElementById('flowerModal');
+      const modalImg = document.getElementById('modalImg');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalDesc = document.getElementById('modalDesc');
+      const music = document.getElementById('bgMusic');
+
+      modalTitle.innerText = name;
+      modalDesc.innerText = symbolism;
+      modalImg.src = imgUrl;
+      modal.classList.add('active');
+
+      if (music) {
+        music.src = songUrl; // Binabago ang kanta depende sa pinindot
+        music.currentTime = 0;
+        music.play().catch(function(error) {
+          console.log("Audio block mechanism bypassed:", error);
+        });
+      }
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('flowerModal');
+      const music = document.getElementById('bgMusic');
+      
+      modal.classList.remove('active');
+      
+      if (music) {
+        music.pause(); // Para huminto ang kanta kapag sinara ang modal
+      }
+    }
+  </script>
+
+</body>
+</html>
